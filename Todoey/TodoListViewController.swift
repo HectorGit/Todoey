@@ -10,7 +10,10 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
 
-    let itemArray = ["Find Mike", "Buy Eggos", "Destroy X"]
+    //let is immutable
+    //var is mutable
+    
+    var itemArray = ["Find Mike", "Buy Eggos", "Destroy X"]
     
     
     override func viewDidLoad() {
@@ -48,6 +51,58 @@ class TodoListViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
 
     }
+    
+    //MARK - Add New Items
+    
+    //important local variables and scope
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var textField = UITextField() //NEEDED TO INCREASE THE SCOPE OF ALERT TEXTFIELD
+        //TO BE ABLE TO PRINT ...
+
+        let alert = UIAlertAction(title: "AddItem", style: .default) { (action) in
+            //what will happen
+            //print("Success!")
+            print(textField.text)
+            
+            
+            //use self - we are in a closure.
+            self.itemArray.append(textField.text!)
+            //if the user enter nothing,
+            //will add an empty string...?
+            //e.g. empty cell will appear.
+            
+            //the change is not reflected
+            //even though the item has been added to itemarray
+            //do this
+            self.tableView.reloadData()
+            
+        }
+        
+        //this was not auto-given by Xcode.
+        alert.addTextField{
+            alertTextField.placeholder = "Create new item"
+            
+            textField = alertTextField //pass a reference
+             //to the text field that appears in the pop up.
+            
+            //print(alertTextField.text)
+            
+            //PRINT HERE DOESN'T WORK, BECAUSE ... IT IS PRINTED
+            //WHEN TEXT FIELD IS ADDED TO THE ALERT.
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+        
+        
+        
+    }
+    
+    
+    
 
 }
 
