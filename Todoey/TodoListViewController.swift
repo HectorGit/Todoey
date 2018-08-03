@@ -61,10 +61,13 @@ class TodoListViewController: UITableViewController {
         var textField = UITextField() //NEEDED TO INCREASE THE SCOPE OF ALERT TEXTFIELD
         //TO BE ABLE TO PRINT ...
 
-        let alert = UIAlertAction(title: "AddItem", style: .default) { (action) in
+        let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
+        
+        
+        let action = UIAlertAction(title: "AddItem", style: .default) { (action) in
             //what will happen
             //print("Success!")
-            print(textField.text)
+            print(textField.text!)
             
             
             //use self - we are in a closure.
@@ -80,12 +83,11 @@ class TodoListViewController: UITableViewController {
             
         }
         
-        //this was not auto-given by Xcode.
-        alert.addTextField{
+        alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Create new item"
             
             textField = alertTextField //pass a reference
-             //to the text field that appears in the pop up.
+            //to the text field that appears in the pop up.
             
             //print(alertTextField.text)
             
@@ -94,6 +96,9 @@ class TodoListViewController: UITableViewController {
         }
         
         alert.addAction(action)
+        
+       
+        
         
         present(alert, animated: true, completion: nil)
         
